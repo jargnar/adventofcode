@@ -1,7 +1,9 @@
-puts $<.read.split.map(&:chars).sum { |bs|
-  skip = bs.size - 12
-  bs.reduce([]) { |on, b|
-    on.pop && skip -= 1 while skip > 0 && on.last&.<(b)
-    on << b
-  }.first(12).join.to_i
+puts $<.read.split.sum { |b|
+  [].tap { |s|
+    x = b.size - 12
+    b.each_char { |c|
+      s.pop && x -= 1 while x > 0 && s.last&.<(c)
+      s << c
+    }
+  }.take(12).join.to_i
 }
